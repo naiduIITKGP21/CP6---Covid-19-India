@@ -38,3 +38,17 @@ app.get("/states", async (request, response) => {
   );
   console.log("returned all states details");
 });
+
+//API 2: Returns a state based on the state ID
+app.get("/states/:stateId/", async (request, response) => {
+  const { stateId } = request.params;
+  const getStateQuery = `SELECT * FROM state WHERE state_id = ${stateId};`;
+  const stateDetails = await db.get(getStateQuery);
+  console.log(stateDetails);
+  const { state_id, state_name, population } = stateDetails;
+  response.send({
+    stateId: `${state_id}`,
+    stateName: `${state_name}`,
+    population: `${population}`,
+  });
+});
