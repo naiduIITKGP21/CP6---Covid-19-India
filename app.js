@@ -30,9 +30,9 @@ app.get("/states", async (request, response) => {
   response.send(
     statesDetails.map((eachState) => {
       return {
-        stateId: `${eachState.state_id}`,
-        stateName: `${eachState.state_name}`,
-        population: `${eachState.population}`,
+        stateId: eachState.state_id,
+        stateName: eachState.state_name,
+        population: eachState.population,
       };
     })
   );
