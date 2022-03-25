@@ -97,7 +97,7 @@ app.get("/districts/:districtId/", async (request, response) => {
 });
 
 //API 5: Deletes a district from the district table based on the district ID
-app.get("/districts/:districtId/", async (request, response) => {
+app.delete("/districts/:districtId/", async (request, response) => {
   const { districtId } = request.params;
   const deleteDistrictQuery = `DELETE FROM district WHERE district_id = ${districtId};`;
   await db.run(deleteDistrictQuery);
@@ -162,3 +162,5 @@ WHERE district_id = ${districtId};`;
     `Returned state name of a district based on the district ID ${districtId}`
   );
 });
+
+module.exports = app;
