@@ -22,3 +22,19 @@ const intitializeDBAndServer = async () => {
   }
 };
 intitializeDBAndServer();
+
+//API 1 : Returns a list of all states in the state table
+app.get("/states", async (request, response) => {
+  const getAllSatesQuery = `SELECT * FROM state;`;
+  const statesDetails = await db.all(getAllSatesQuery);
+  response.send(
+    statesDetails.map((eachState) => {
+      return {
+        stateId: `${eachState.state_id}`,
+        stateName: `${eachState.state_name}`,
+        population: `${eachState.population}`,
+      };
+    })
+  );
+  console.log("returned all states details");
+});
