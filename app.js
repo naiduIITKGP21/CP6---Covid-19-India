@@ -47,8 +47,23 @@ app.get("/states/:stateId/", async (request, response) => {
   console.log(stateDetails);
   const { state_id, state_name, population } = stateDetails;
   response.send({
-    stateId: `${state_id}`,
-    stateName: `${state_name}`,
-    population: `${population}`,
+    stateId: state_id,
+    stateName: state_name,
+    population: population,
   });
+  console.log(`Returns a state based on the state ID ${state_id}`);
+});
+
+//API 3: Create a district in the district table, `district_id` is auto-incremented
+app.post("/districts/", async (request, response) => {
+  const { districtName, stateId, cases, cured, active, deaths } = request.body;
+  const addDistrictQuesry = `INSERT INTO district
+(district_name, state_id, cases, cured, active, deaths) 
+VALUES
+("${districtName}", ${stateId}, ${cases}, ${cured}, ${active}, ${deaths});`;
+  await db.run(addDistrictQuesry);
+  response.send("District Successfully Added");
+  console.log(
+    `${districtName} district(state_id ${stateId}) is seccessfully added `
+  );
 });
